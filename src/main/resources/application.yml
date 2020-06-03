@@ -1,21 +1,21 @@
-sping:
+spring:
   application:
     name: wiki-tracker-api
   server:
     port: 8000
-  graphql:
-    servlet:
-      mapping: /graphql
-      enabled: true
-      corsEnabled: true
-      cors:
-        allowed-origins: http://localhost
-    playground:
-      cdn:
-        version: latest
-  graphiql:
-    enabled: true
-    cdn:
-      enabled: true
-      version: latest
+#  graphql:
+#    servlet:
+#      mapping: /graphql
+#      enabled: true
+#      corsEnabled: true
+#      cors:
+#        allowed-origins: http://localhost
+#    playground:
+#      cdn:
+#        version: latest
+#  graphiql:
+#    enabled: true
+#    cdn:
+#      enabled: true
+#      version: latest
 
