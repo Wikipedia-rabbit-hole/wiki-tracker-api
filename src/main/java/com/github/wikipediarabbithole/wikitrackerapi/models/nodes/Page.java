@@ -1,8 +1,8 @@
-package com.github.wikipediarabbithole.wikitrackerapi.entities;
+package com.github.wikipediarabbithole.wikitrackerapi.models.nodes;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.github.wikipediarabbithole.wikitrackerapi.relationships.PageLink;
-import com.github.wikipediarabbithole.wikitrackerapi.relationships.PageView;
+import com.github.wikipediarabbithole.wikitrackerapi.models.relationships.PageLink;
+import com.github.wikipediarabbithole.wikitrackerapi.models.relationships.PageView;
 import lombok.Data;
 import org.neo4j.ogm.annotation.GeneratedValue;
 import org.neo4j.ogm.annotation.Id;

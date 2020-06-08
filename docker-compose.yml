@@ -1,0 +1,14 @@
+version: "3.8"
+services:
+  db:
+    image: neo4j:enterprise
+    ports:
+      - 7474:7474
+      - 7687:7687
+    volumes:
+      - $NEO4J_HOME/data:/data
+      - $NEO4J_HOME/logs:/logs
+      - $NEO4J_HOME/import:/import
+      - $NEO4J_HOME/plugins:/plugins
+    env_file: .env
+    restart: always

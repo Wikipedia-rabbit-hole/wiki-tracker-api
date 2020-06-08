@@ -9,4 +9,5 @@ public class WikiTrackerApiApplication {
     public static void main(String[] args) {
         SpringApplication.run(WikiTrackerApiApplication.class, args);
     }
+
 }

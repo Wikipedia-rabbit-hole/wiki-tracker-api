@@ -1,6 +1,6 @@
 package com.github.wikipediarabbithole.wikitrackerapi.controllers;
 
-import com.github.wikipediarabbithole.wikitrackerapi.entities.User;
+import com.github.wikipediarabbithole.wikitrackerapi.models.nodes.User;
 import com.github.wikipediarabbithole.wikitrackerapi.repositories.UserRepository;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-@RestController
+@RestController(value = "/api/v1/user")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 @Slf4j
 public class UserController {
@@ -29,11 +29,7 @@ public class UserController {
 
     @PostMapping("/test")
     public User testRoute(@RequestBody User user) {
-        log.info("Creating user with name {} and email {}", user.getName(), user.getEmail());
         userRepository.save(user);
-        log.info("Searching for user");
-        User createdUser = userRepository.findByName(user.getName());
-        log.info("Found user with name {} and ID {}", createdUser.getName(), createdUser.getId());
-        return createdUser;
+        return user;
     }
 }

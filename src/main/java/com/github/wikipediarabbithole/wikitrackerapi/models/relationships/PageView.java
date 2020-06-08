@@ -1,22 +1,23 @@
-package com.github.wikipediarabbithole.wikitrackerapi.relationships;
+package com.github.wikipediarabbithole.wikitrackerapi.models.relationships;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.github.wikipediarabbithole.wikitrackerapi.entities.Page;
-import com.github.wikipediarabbithole.wikitrackerapi.entities.User;
+import com.github.wikipediarabbithole.wikitrackerapi.models.nodes.Page;
+import com.github.wikipediarabbithole.wikitrackerapi.models.nodes.User;
 import org.neo4j.ogm.annotation.*;
 import org.neo4j.ogm.id.UuidStrategy;
 import org.springframework.data.annotation.CreatedDate;
 
 import java.time.Instant;
-import java.util.UUID;
 
 @RelationshipEntity("VIEWED")
 public class PageView {
     @Id
     @GeneratedValue(strategy = UuidStrategy.class)
-    private UUID id;
+    private String id;
     @CreatedDate
     private Instant viewedAt;
+    // TODO: Revisit data type
+    private String sessionId;
 
     @JsonIgnoreProperties("user")
     @StartNode
