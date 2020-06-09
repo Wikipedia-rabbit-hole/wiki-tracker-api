@@ -6,9 +6,19 @@ services:
       - 7474:7474
       - 7687:7687
     volumes:
-      - $NEO4J_HOME/data:/data
-      - $NEO4J_HOME/logs:/logs
-      - $NEO4J_HOME/import:/import
-      - $NEO4J_HOME/plugins:/plugins
+      - data:/data
+      - logs:/logs
+#      - import:/import
+#      - plugins:/plugins
+    environment:
+      - NEO4J_ACCEPT_LICENSE_AGREEMENT=yes
+      - NEO4JLABS_PLUGINS=["apoc"]
+      - NEO4J_apoc_uuid_enabled=true
     env_file: .env
     restart: always
+
+volumes:
+  data: {}
+  logs: {}
+#  import: {}
+#  plugins: {}

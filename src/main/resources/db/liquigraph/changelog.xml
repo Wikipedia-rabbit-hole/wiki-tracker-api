@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<changelog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:noNamespaceSchemaLocation="http://www.liquigraph.org/schema/1.0/liquigraph.xsd">
+    <changeset id="cleanDbNodes" author="ian">
+        <query>MATCH (n) DETACH DELETE n</query>
+    </changeset>
+    <changeset id="cleanDbSchema" author="ian">
+        <query>CALL apoc.schema.assert({},{},true) YIELD label, key RETURN *</query>
+    </changeset>
+    <changeset id="initDbConstraints" author="ian">
+        <query>CREATE CONSTRAINT ON (u:User) ASSERT u.id IS UNIQUE</query>
+        <query>CREATE CONSTRAINT ON (p:Page) ASSERT p.id IS UNIQUE</query>
+    </changeset>
+    <changeset id="initDbUUID" author="ian">
+        <query>CALL apoc.uuid.install('User', {uuidProperty: 'id'}) yield label, installed, properties</query>
+        <query>CALL apoc.uuid.install('Page', {uuidProperty: 'id'}) yield label, installed, properties</query>
+    </changeset>
+</changelog>
