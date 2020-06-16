@@ -9,6 +9,7 @@
     </changeset>
     <changeset id="initDbConstraints" author="ian">
         <query>CREATE CONSTRAINT ON (u:User) ASSERT u.id IS UNIQUE</query>
+        <query>CREATE CONSTRAINT ON (u:User) ASSERT u.email IS UNIQUE</query>
         <query>CREATE CONSTRAINT ON (p:Page) ASSERT p.id IS UNIQUE</query>
     </changeset>
     <changeset id="initDbUUID" author="ian">

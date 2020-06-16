@@ -1,21 +1,22 @@
 package com.github.wikipediarabbithole.wikitrackerapi.controllers;
 
+import com.github.wikipediarabbithole.wikitrackerapi.exceptions.UserExistsException;
 import com.github.wikipediarabbithole.wikitrackerapi.models.nodes.User;
 import com.github.wikipediarabbithole.wikitrackerapi.repositories.UserRepository;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
+import static org.springframework.data.domain.PageRequest.of;
 
-@RestController(value = "/api/v1/user")
+@RestController
+@RequestMapping("/api/v1/user")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 @Slf4j
 public class UserController {
@@ -23,13 +24,32 @@ public class UserController {
     private UserRepository userRepository;
 
     @GetMapping("/allUsers")
-    public List<User> allUsers() {
-        return StreamSupport.stream(userRepository.findAll().spliterator(), false).collect(Collectors.toList());
+    public Page<User> allUsers(@RequestParam(defaultValue = "0") int pageNum) {
+        return userRepository.findAll(of(pageNum, 20));
     }
 
-    @PostMapping("/test")
-    public User testRoute(@RequestBody User user) {
-        userRepository.save(user);
-        return user;
+    @PostMapping("/test1")
+    public User testRoute2(@RequestBody User user) {
+        if (userRepository.existsByEmail(user.getEmail())) {
+            throw new ResponseStatusException(
+                    HttpStatus.SEE_OTHER,
+                    String.format("User with email %s already exists", user.getEmail()));
+        } else {
+            return userRepository.save(user);
+        }
+    }
+
+    @PostMapping("/test2")
+    public User testRoute3(@RequestBody User user) {
+        try {
+            return userRepository.save(user);
+        } catch (DataIntegrityViolationException e) {
+            throw new UserExistsException(e.getRootCause().getMessage());
+        }
+    }
+
+    @PostMapping("/test3")
+    public User testRoute4(@RequestBody User user) {
+        return userRepository.save(user);
     }
 }
