@@ -23,33 +23,28 @@ public class UserController {
     @NonNull
     private UserRepository userRepository;
 
-    @GetMapping("/allUsers")
-    public Page<User> allUsers(@RequestParam(defaultValue = "0") int pageNum) {
-        return userRepository.findAll(of(pageNum, 20));
+    @GetMapping("/list")
+    public Page<User> allUsers(@RequestParam(defaultValue = "0") int page) {
+        return userRepository.findAll(of(page, 20));
     }
 
-    @PostMapping("/test1")
-    public User testRoute2(@RequestBody User user) {
+    @PostMapping("")
+    public User createUser(@RequestBody User user) {
         if (userRepository.existsByEmail(user.getEmail())) {
             throw new ResponseStatusException(
-                    HttpStatus.SEE_OTHER,
+                    HttpStatus.CONFLICT,
                     String.format("User with email %s already exists", user.getEmail()));
         } else {
             return userRepository.save(user);
         }
     }
 
-    @PostMapping("/test2")
-    public User testRoute3(@RequestBody User user) {
-        try {
-            return userRepository.save(user);
-        } catch (DataIntegrityViolationException e) {
-            throw new UserExistsException(e.getRootCause().getMessage());
-        }
-    }
-
-    @PostMapping("/test3")
-    public User testRoute4(@RequestBody User user) {
-        return userRepository.save(user);
-    }
+//    @PostMapping("/test2")
+//    public User testRoute3(@RequestBody User user) {
+//        try {
+//            return userRepository.save(user);
+//        } catch (DataIntegrityViolationException e) {
+//            throw new UserExistsException(e.getRootCause().getMessage());
+//        }
+//    }
 }
