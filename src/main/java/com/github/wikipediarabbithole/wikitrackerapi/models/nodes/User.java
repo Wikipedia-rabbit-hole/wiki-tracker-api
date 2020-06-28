@@ -3,21 +3,18 @@ package com.github.wikipediarabbithole.wikitrackerapi.models.nodes;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.github.wikipediarabbithole.wikitrackerapi.models.relationships.PageView;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
 import org.neo4j.driver.internal.shaded.reactor.util.annotation.NonNull;
 import org.neo4j.ogm.annotation.*;
 import org.neo4j.ogm.id.UuidStrategy;
-import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.annotation.ReadOnlyProperty;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@NodeEntity
+@NodeEntity("User")
 @Data
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@ToString
 public class User {
     @Id
     @GeneratedValue(strategy = UuidStrategy.class)
@@ -27,11 +24,10 @@ public class User {
     private String name;
 
     @Index(unique = true)
-    @EqualsAndHashCode.Include
     private String email;
 
-    @CreatedDate
-    @ToString.Exclude
+    @LastModifiedDate
+    @ReadOnlyProperty
     private LocalDateTime createdDate;
 
     @JsonIgnoreProperties("user")

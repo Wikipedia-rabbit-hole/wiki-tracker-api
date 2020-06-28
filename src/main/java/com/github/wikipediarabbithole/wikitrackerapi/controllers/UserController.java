@@ -1,13 +1,11 @@
 package com.github.wikipediarabbithole.wikitrackerapi.controllers;
 
-import com.github.wikipediarabbithole.wikitrackerapi.exceptions.UserExistsException;
 import com.github.wikipediarabbithole.wikitrackerapi.models.nodes.User;
 import com.github.wikipediarabbithole.wikitrackerapi.repositories.UserRepository;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

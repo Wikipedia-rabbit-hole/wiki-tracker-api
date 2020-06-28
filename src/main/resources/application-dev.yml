@@ -13,16 +13,8 @@ spring:
     password: test
     driver-class-name: org.neo4j.jdbc.bolt.BoltDriver
 
-#logging:
-#  level:
-#    root: debug
-
-#liquigraph:
-#  url: jdbc:neo4j:bolt://localhost:7687/
-#  user: neo4j
-#  password: test
-
 server:
   port: 8000
   error:
     include-stacktrace: always
+    include-message: always

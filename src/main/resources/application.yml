@@ -6,27 +6,20 @@ spring:
       uri: neo4j://localhost:7687
       username: neo4j
       password: test
+      use-native-types: true
   datasource:
     url: jdbc:neo4j:bolt://localhost
     username: neo4j
     password: test
     driver-class-name: org.neo4j.jdbc.bolt.BoltDriver
-  jackson:
-    serialization:
-      indent_output: true
-#  profiles:
-#    active: dev
+  profiles:
+    active: dev
 
 #logging:
 #  level:
 #    root: debug
 
-#liquigraph:
-#  url: jdbc:neo4j:bolt://localhost:7687/
-#  user: neo4j
-#  password: test
-
 server:
   port: 8000
   error:
-    include-message: always
+    include-message: on_param
